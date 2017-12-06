@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" type="text/css" href="css/demo-light.css">
+<link rel="stylesheet" type="text/css" href="css/ui-light.css">
+
+<style>
+.button-group > button {
+  min-width:7em;
+}
+</style>
+
+
+<title>Waterfall</title>
+
+</head>
+
+<body>
+  <h1>Waterfall</h1>
+
+  <section class="description">
+    <p>This project is a WebGL 2 simulation of a waterfall running entirely on  GPU.
+      You can interact with the fluid with the mouse, and add obstacles with the left mouse button.
+    </p>
+    <p>It is essentially a particle system, with the particles independently falling and bouncing off obstacles.
+      The cartoonish look is achieved by applying a blur and then a threshold to the particles.
+    </p>
+
+    <a href="https://piellardj.github.io/waterfall-webgl">WebGL 1 version</a>
+    <br /><br />
+    <a href="https://github.com/piellardj/waterfall-webgl2">More on Github</a>
+  </section>
+
+  <div class="demo">
+    <canvas id="glcanvas" width="512" height="512"></canvas>
+
+    <section class="controls">    
+      <section style="max-width:512px;margin:auto;">
+        
+        <section class="controls-block">
+          <h2>Particles</h2>
+          <section class="block-content">
+            <section class="controls-block">
+              <h3>Amount:</h3>
+              <input type="range" min="0" max="9" value="3" step="1" class="slider" id="amount-slider">
+            </section>
+            <section class="controls-block">
+              <h3>Gravity:</h3>
+              <input type="range" min="10" max="300" value="100" class="slider" id="gravity-slider">
+            </section>
+            <section class="controls-block">
+              <h3>Speed:</h3>
+              <input type="range" min="0.1" max="1.9" value="1" step="0.02" class="slider" id="speed-slider">
+            </section>
+          </section>
+        </section>
+        
+        <p></p>
+        
+        <section class="controls-block">
+          <h2>Obstacles</h2>
+          <section class="block-content">
+            <section class="controls-block">
+              <h3>Radius:</h3>
+              <input type="range" min="10" max="100" value="40" class="slider" id="brushsize-slider">
+            </section>
+            <section class="controls-block">
+              <h3>Show normals:</h3>
+              <div class="checkbox">
+                <input type="checkbox" id="display-normals-checkbox">
+                <label for="display-normals-checkbox" class="checkmark-full"></label>
+              </div>
+            </section>
+            <section class="controls-block">
+               <button class="compact" id="reset-button">Clear</button>
+            </section>
+          </section>
+        </section>
+        
+        <p></p>
+        
+        <section class="controls-block">
+          <h2>Rendering</h2>
+          <section class="block-content">
+            <section class="controls-block">
+              <div style="max-width:16em;margin:auto;">
+                <div class="button-group unique compact" style="max-width:32rem;">
+                  <button id="point-mode-button">Points</button>
+                  <button class=" selected" id="fluid-mode-button">Fluid</button>
+                </div>
+              </div>
+            </section>
+            <section class="controls-block">
+              <h3>Point size:</h3>
+              <input type="range" min="1" max="20" value="6" class="slider" id="point-size-slider">
+            </section>
+            <div class="collapsible" id="fluid-controllers">
+              <section class="controls-block">
+                <h3>Blur:</h3>
+                <input type="range" min="1" max="41" value="21" step="2" class="slider" id="blur-slider">
+              </section>
+              <section class="controls-block">
+                <h3>Threshold:</h3>
+                <input type="range" min="0" max="1" value="0.2" step="0.01" class="slider" id="blur-threshold-slider">
+              </section>
+              <section class="controls-block">
+                <h3>Show normals:</h3>
+                <div class="checkbox">
+                  <input type="checkbox" id="water-normals-checkbox">
+                  <label for="water-normals-checkbox" class="checkmark-full"></label>
+                </div>
+              </section>
+              <section class="controls-block">
+                <h3>Specular:</h3>
+                <div class="checkbox">
+                  <input type="checkbox" id="specular-checkbox" checked>
+                  <label for="specular-checkbox" class="checkmark-full" id="specular-label"></label>
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+        
+        <p></p>
+        <div>fps: <span id="fps-text"></span></div>
+        <div>particles: <span id="nb-particles-text"></span></div>
+      </section>
+    </section>
+  </div>
+
+<script src="scripts/ui.js"></script>
+<script src="scripts/gl-utils.js"></script>
+<script src="scripts/particles.js"></script>
+<script src="scripts/obstacle-map.js"></script>
+<script src="scripts/controls.js"></script>
+<script src="scripts/fluidify.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+
+</html>

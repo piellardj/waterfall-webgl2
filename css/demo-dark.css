@@ -1,0 +1,88 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  text-align: center;
+  color: #B9B9B9;
+  //background-color: #EEEEEE;
+  background-color: #333333;
+}
+
+h1 {
+  color: #FFF;
+}
+
+.description {
+  font-size: small;
+  max-width: 512px;
+  padding-bottom: 32px;
+  justify-content: center;
+  text-align: justify;
+  text-indent: 1em;
+  margin: auto;
+}
+
+.demo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+}
+
+.demo > canvas {
+  background-color: white;
+  margin: 0px 24px 24px 24px;
+}
+
+.demo > .controls {
+  flex-basis: 512px;
+}
+
+.collapsible {
+  overflow: hidden;
+  -webkit-transition: max-height .2s;
+  transition: max-height .2s;
+  max-height: 10em;
+}
+
+.collapsible.hidden {
+  max-height: 0px;
+}
+
+.controls-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.2em 0 0.2em 0;
+  margin: 0px 0px 0px 0px;
+ // border: 1px solid black;
+}
+
+.block-content {
+  display: flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 75%;
+}
+
+.controls-block > h2 {
+  display: flex;
+  min-width: 7em;
+  font-weight: bold;
+  font-size: medium;
+  margin: 0.3em 0 0 0;
+}
+
+.controls-block > h3 {
+  display: flex;
+  min-width: 8em;
+  font-weight: normal;
+  font-size: medium;
+  margin: 0px;
+}
+
+.controls-block > input {
+  display: flex;
+  flex:1;
+  min-width:192px;
+}
