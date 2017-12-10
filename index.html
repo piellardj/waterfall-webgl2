@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" type="text/css" href="css/demo-light.css">
+<link rel="stylesheet" type="text/css" href="css/demo.css">
 <link rel="stylesheet" type="text/css" href="css/ui-light.css">
+
+<!-- <link rel="stylesheet" type="text/css" href="css/demo-dark.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/demo.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/ui-dark.css"> -->
 
 <style>
 .button-group > button {
@@ -37,102 +42,100 @@
   <div class="demo">
     <canvas id="glcanvas" width="512" height="512"></canvas>
 
-    <section class="controls">    
-      <section style="max-width:512px;margin:auto;">
-        
-        <section class="controls-block">
-          <h2>Particles</h2>
-          <section class="block-content">
-            <section class="controls-block">
-              <h3>Amount:</h3>
-              <input type="range" min="0" max="9" value="3" step="1" class="slider" id="amount-slider">
-            </section>
-            <section class="controls-block">
-              <h3>Gravity:</h3>
-              <input type="range" min="10" max="300" value="100" class="slider" id="gravity-slider">
-            </section>
-            <section class="controls-block">
-              <h3>Speed:</h3>
-              <input type="range" min="0.1" max="1.9" value="1" step="0.02" class="slider" id="speed-slider">
-            </section>
+    <section class="controls">
+      <section class="controls-block">
+        <h2>Particles</h2>
+        <section class="block-content">
+          <section class="control">
+            <label>Amount:</label>
+            <input type="range" min="0" max="9" value="3" step="1" class="slider" id="amount-slider">
+          </section>
+          <section class="control">
+            <label>Gravity:</label>
+            <input type="range" min="10" max="300" value="100" class="slider" id="gravity-slider">
+          </section>
+          <section class="control">
+            <label>Speed:</label>
+            <input type="range" min="0.1" max="1.9" value="1" step="0.02" class="slider" id="speed-slider">
           </section>
         </section>
-        
-        <p></p>
-        
-        <section class="controls-block">
-          <h2>Obstacles</h2>
-          <section class="block-content">
-            <section class="controls-block">
-              <h3>Radius:</h3>
-              <input type="range" min="10" max="100" value="40" class="slider" id="brushsize-slider">
-            </section>
-            <section class="controls-block">
-              <h3>Show normals:</h3>
-              <div class="checkbox">
-                <input type="checkbox" id="display-normals-checkbox">
-                <label for="display-normals-checkbox" class="checkmark-full"></label>
-              </div>
-            </section>
-            <section class="controls-block">
-               <button class="compact" id="reset-button">Clear</button>
-            </section>
+      </section>
+      
+      <hr/>
+      
+      <section class="controls-block">
+        <h2>Obstacles</h2>
+        <section class="block-content">
+          <section class="control">
+            <label>Radius:</label>
+            <input type="range" min="10" max="100" value="40" class="slider" id="brushsize-slider">
           </section>
-        </section>
-        
-        <p></p>
-        
-        <section class="controls-block">
-          <h2>Rendering</h2>
-          <section class="block-content">
-            <section class="controls-block">
-              <div style="max-width:16em;margin:auto;">
-                <div class="button-group unique compact" style="max-width:32rem;">
-                  <button id="point-mode-button">Points</button>
-                  <button class=" selected" id="fluid-mode-button">Fluid</button>
-                </div>
-              </div>
-            </section>
-            <section class="controls-block">
-              <h3>Point size:</h3>
-              <input type="range" min="1" max="20" value="6" class="slider" id="point-size-slider">
-            </section>
-            <div class="collapsible" id="fluid-controllers">
-              <section class="controls-block">
-                <h3>Blur:</h3>
-                <input type="range" min="1" max="41" value="21" step="2" class="slider" id="blur-slider">
-              </section>
-              <section class="controls-block">
-                <h3>Threshold:</h3>
-                <input type="range" min="0" max="1" value="0.2" step="0.01" class="slider" id="blur-threshold-slider">
-              </section>
-              <section class="controls-block">
-                <h3>Show normals:</h3>
-                <div class="checkbox">
-                  <input type="checkbox" id="water-normals-checkbox">
-                  <label for="water-normals-checkbox" class="checkmark-full"></label>
-                </div>
-              </section>
-              <section class="controls-block">
-                <h3>Specular:</h3>
-                <div class="checkbox">
-                  <input type="checkbox" id="specular-checkbox" checked>
-                  <label for="specular-checkbox" class="checkmark-full" id="specular-label"></label>
-                </div>
-              </section>
+          <section class="control">
+            <label>Show normals:</label>
+            <div class="checkbox">
+              <input type="checkbox" id="display-normals-checkbox">
+              <label for="display-normals-checkbox" class="checkmark-full"></label>
             </div>
           </section>
+          <section class="control">
+             <button class="compact" id="reset-button">Clear</button>
+          </section>
         </section>
-        
-        <p></p>
-        <div>fps: <span id="fps-text"></span></div>
-        <div>particles: <span id="nb-particles-text"></span></div>
       </section>
+      
+      <hr/>
+      
+      <section class="controls-block">
+        <h2>Rendering</h2>
+        <section class="block-content">
+          <section class="control">
+            <div style="max-width:16em;margin:auto;">
+              <div class="button-group unique compact" style="max-width:32rem;">
+                <button id="point-mode-button">Points</button>
+                <button class=" selected" id="fluid-mode-button">Fluid</button>
+              </div>
+            </div>
+          </section>
+          <section class="control">
+            <label>Point size:</label>
+            <input type="range" min="1" max="20" value="6" class="slider" id="point-size-slider">
+          </section>
+          <div class="collapsible" id="fluid-controllers">
+            <section class="control">
+              <label>Blur:</label>
+              <input type="range" min="1" max="41" value="21" step="2" class="slider" id="blur-slider">
+            </section>
+            <section class="control">
+              <label>Threshold:</label>
+              <input type="range" min="0" max="1" value="0.2" step="0.01" class="slider" id="blur-threshold-slider">
+            </section>
+            <section class="control">
+              <label>Show normals:</label>
+              <div class="checkbox">
+                <input type="checkbox" id="water-normals-checkbox">
+                <label for="water-normals-checkbox" class="checkmark-full"></label>
+              </div>
+            </section>
+            <section class="control">
+              <label>Specular:</label>
+              <div class="checkbox">
+                <input type="checkbox" id="specular-checkbox" checked>
+                <label for="specular-checkbox" class="checkmark-full" id="specular-label"></label>
+              </div>
+            </section>
+          </div>
+        </section>
+      </section>
+      
+      <hr/>
+      
+      <div>fps: <span id="fps-text"></span></div>
+      <div>particles: <span id="nb-particles-text"></span></div>
     </section>
   </div>
 
 <script src="scripts/ui.js"></script>
-<script src="scripts/gl-utils.js"></script>
+<script src="scripts/gl2-utils.js"></script>
 <script src="scripts/particles.js"></script>
 <script src="scripts/obstacle-map.js"></script>
 <script src="scripts/controls.js"></script>

@@ -1,89 +1,20 @@
 body {
-  font-family: Verdana, Geneva, sans-serif;
-  text-align: center;
-  color: #202020;
-  background-color: #EEEEEE;
-}
+  color: #676767;
+  background-color: #EEEEEE; }
+
+hr {
+  border-color: #DBDBDB; }
 
 h1 {
-  color: black;
-}
+  color: #535353; }
 
 .description {
-  font-size: small;
-  max-width: 512px;
-  padding-bottom: 32px;
-  justify-content: center;
-  text-align: justify;
-  text-indent: 1em;
-  margin: auto;
-  color: #404040;
-}
-
-.demo {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: auto;
-}
-
-.demo > canvas {
-  background-color: white;
-  margin: 0px 24px 24px 24px;
-  max-width: 100%;
-}
-
-.demo > .controls {
-  flex-basis: 512px;
-}
-
-.collapsible {
-  overflow: hidden;
-  -webkit-transition: max-height .2s;
-  transition: max-height .2s;
-  max-height: 10em;
-}
-
-.collapsible.hidden {
-  max-height: 0px;
-}
-
-.controls-block {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0.2em 0 0.2em 0;
-  margin: 0px 0px 0px 0px;
-}
-
-.block-content {
-  display: flex;
-  flex-direction:column;
-  flex-wrap: wrap;
-  flex: 1;
-  min-width: 75%;
-}
+  color: #676767; }
 
 .controls-block > h2 {
-  display: flex;
-  min-width: 7em;
-  font-weight: bold;
-  font-size: medium;
-  margin: 0.3em 0 0 0;
-  color: black;
-}
+  color: #535353; }
 
-.controls-block > h3 {
-  display: flex;
-  min-width: 8em;
-  font-weight: normal;
-  font-size: medium;
-  margin: 0px;
-}
+.control > label {
+  color: #676767; }
 
-.controls-block > input {
-  display: flex;
-  flex:1;
-  min-width:192px;
-}
+/*# sourceMappingURL=demo-light.css.map */

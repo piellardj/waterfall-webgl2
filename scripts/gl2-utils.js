@@ -298,7 +298,7 @@ const Shader = (function() {
       const vertexSrc = document.getElementById(vertexScriptId).text;
       const fragmentSrc = document.getElementById(fragmentScriptId).text;
       
-      return this.fromString(vertexSrc, fragmentSrc, transformFeedback);
+      return this.fromString(gl, vertexSrc, fragmentSrc, transformFeedback);
     },
     
     typeToString: function(type) {
@@ -370,6 +370,23 @@ const VBO = (function() {
       
       return this.createFromArray(gl, new Float32Array(vert), 2, gl.FLOAT);
       }
+  };
+  
+  return Object.freeze(visible);
+})();
+
+const Utils = (function() {
+  const visible = {
+    resizeCanvas: function(gl, hidpi=false) {
+      const cssPixel = (hidpi) ? window.devicePixelRatio : 1;
+
+      const width = Math.floor(gl.canvas.clientWidth * cssPixel);
+      const height = Math.floor(gl.canvas.clientHeight * cssPixel);
+      if (gl.canvas.width != width || gl.canvas.height != height) {
+         gl.canvas.width = width;
+         gl.canvas.height = height;
+      }
+    }
   };
   
   return Object.freeze(visible);

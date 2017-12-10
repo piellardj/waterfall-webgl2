@@ -13,14 +13,32 @@ function initGL(canvas, flags) {
   }
   
   canvas.style.cursor = "none";
-  gl.canvas.width = canvas.clientWidth;
-  gl.canvas.height = canvas.clientHeight;
   gl.disable(gl.CULL_FACE);
   gl.disable(gl.DEPTH_TEST);
   gl.disable(gl.BLEND);
   gl.clearColor(0.0, 0.0, 0.0, 0.0);
-    
+  
+  Utils.resizeCanvas(gl, false);
+  
   return gl;
+}
+
+function checkRequirements(gl) {
+  const vertexUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
+  const fragmentUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
+  if (vertexUnits < 0 || fragmentUnits < 2) {
+    alert("Your device does not meet the requirements for this simulation.");
+    return false;
+  }
+
+  const mediump = gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.MEDIUM_FLOAT);
+  if (mediump.precision < 23) {
+    alert("Your device only supports low precision float in fragment shader.\n" +
+      "The simulation will not run.");
+    return false;
+  }
+  
+  return true;
 }
 
 function main() {
@@ -29,6 +47,10 @@ function main() {
   if (!gl)
     return;
 
+  if (!checkRequirements(gl)) {
+    return;
+  }
+  
   const ratio = gl.drawingBufferWidth / gl.drawingBufferHeight;
 
   const particles = new Particles(gl, 16*16);
