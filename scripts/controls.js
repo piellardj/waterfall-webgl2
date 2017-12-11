@@ -84,23 +84,37 @@ var Controls = (function(){
   }
 
   function bindMouse(gl, canvas, obstacles) {
-    let isMouseDown = false;
-    canvas.onmousemove = function addObstacles(event) {
-      let posX = event.offsetX / canvas.clientWidth;
-      let posY = 1.0 - event.offsetY / canvas.clientHeight;
+    function documentToCanvas(vec) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: vec.x - rect.left,
+        y: canvas.clientHeight - (vec.y - rect.top)
+      };
+    }
+    
+    function mouseMove(event) {
+      let pos = { x: event.clientX, y: event.clientY };
+      pos = documentToCanvas(pos);
+      pos.x /= canvas.clientWidth;
+      pos.y /= canvas.clientHeight;
         
-      obstacles.setMobileObstacle(gl, posX, posY);
+      obstacles.setMobileObstacle(gl, pos.x, pos.y);
       if (isMouseDown) {
-        obstacles.addStaticObstacle(gl, posX, posY);
+        obstacles.addStaticObstacle(gl, pos.x, pos.y);
       }
     }
-    canvas.onmousedown = function (event) {
+    
+    let isMouseDown = false;
+    document.addEventListener("mousemove", mouseMove, false);
+    
+    canvas.addEventListener("mousedown", function (e) {
       isMouseDown = true;
-      canvas.onmousemove(event);
-    }
-    document.body.onmouseup = function () {
+      mouseMove(event);
+    }, false);
+    
+    document.body.addEventListener("mouseup", function () {
       isMouseDown = false;
-    }
+    }, false);
   }
 
   /* Public static methods */
