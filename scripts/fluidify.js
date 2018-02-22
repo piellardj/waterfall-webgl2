@@ -23,7 +23,8 @@ const FluidifyShaders = (function() {
       uniform sampler2D uTexture;
       uniform float uThreshold;
       uniform bool uShowNormals;
-      uniform bool uSpecular;
+      uniform bool uShowLight;
+      uniform vec2 uTexelSize;
       
       in vec2 sampleCoords;
       
@@ -31,31 +32,32 @@ const FluidifyShaders = (function() {
 
       void main(void)
       {
-          vec4 texel = texture(uTexture, sampleCoords);
-          
-          float visible = step(uThreshold, texel.a);
-          float level = visible * texel.a;
-          
-          vec4 color = texel;
+        float dx = texture(uTexture, sampleCoords + vec2(uTexelSize.x, 0)).a -
+                   texture(uTexture, sampleCoords - vec2(uTexelSize.x, 0)).a;
+        float dy = texture(uTexture, sampleCoords + vec2(0, uTexelSize.y)).a -
+                   texture(uTexture, sampleCoords - vec2(0, uTexelSize.y)).a;
 
-          vec3 n = cross(vec3(1.0 / 512.0, 0, dFdx(level)), vec3(0, 1.0/512.0, dFdy(level)));
-          n = normalize(n);
-            
-          if (uShowNormals)
-              color = vec4(0.5*n+.5,1);
-          
-          const vec3 lightDir = vec3(0.73, 0.73, -0.73);//normalize(-vec3(1, 1, 1));
-            
-          const vec4 specularColor = vec4(1, 1, 1, 0);
-          const float k = 0.1;
-            
-          float specularFactor = smoothstep(0.99, 1.0, dot(n, lightDir));
-          vec4 specular = pow(specularFactor, k) * specularColor;
+        vec3 n = cross(vec3(uTexelSize.x, 0, dx), vec3(0, uTexelSize.y, dy));
+        n = normalize(n);
 
-          if (!uSpecular)
-            specular = vec4(0);
-          
-          fragColor = visible * (color + specular);
+        const vec3 lightDir = vec3(0.578, 0.578, -0.578);
+        const vec4 specularColor = vec4(1, 1, 1, 0);
+        const float k = 1.0;
+
+        float h = dot(n, lightDir);
+        float diffuse = 2.0 * h + 1.0;
+        float specular = pow(smoothstep(0.79, 1.0, h), k);
+
+        vec4 color = texture(uTexture, sampleCoords);
+        float height = color.a;
+        if (uShowNormals) {
+        color = vec4(0.5 * n  + 0.5, 1);
+        }
+
+        float light = float(uShowLight) * (0.05 * diffuse + 50.0 * specular);
+
+        float visible = step(uThreshold, height);
+        fragColor = visible * (color + light * specularColor);
       }`;
         
   const blurVertStr =
@@ -146,13 +148,13 @@ class Fluidify {
     gl.bindVertexArray(null);
 
     this._displayShader = FluidifyShaders.getDisplayShader(gl);
+    this._displayShader.u["uTexelSize"].value = [1 / width, 1 / height];
     this._displayShader.u["uTexture"].value = this._blurredTex;
 
     this._blurShader = FluidifyShaders.getBlurShader(gl, 1);
     this.setKernelSize(gl, 9); 
          
     this.threshold = 0.5;
-    this.solidColor = true;
     this.showNormals = false;
     this.specular = true;
   }
@@ -161,9 +163,7 @@ class Fluidify {
    * @param {boolean} value
   */
   set showNormals(value) {
-    if (typeof this._displayShader.u["uShowNormals"] !== typeof undefined) {
-      this._displayShader.u["uShowNormals"].value = value;
-    }
+    this._displayShader.u["uShowNormals"].value = value;
   }
 
   /**
@@ -177,9 +177,7 @@ class Fluidify {
    * @param {boolean} value
   */
   set specular(value) {
-    if (typeof this._displayShader.u["uSpecular"] !== typeof undefined) {
-      this._displayShader.u["uSpecular"].value = value;
-    }
+    this._displayShader.u["uShowLight"].value = value;
   }
   
   setKernelSize(gl, kernelSize) {
