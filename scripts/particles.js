@@ -230,6 +230,7 @@ class Particles {
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vel), gl.STREAM_COPY);
       gl.enableVertexAttribArray(velLoc);
       gl.vertexAttribPointer(velLoc, 2, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, null);
       
       gl.bindTransformFeedback(gl.TRANSFORM_FEEDBACK, this._transformFeedback[i]);
       gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER, 0, this._posVBO[i]);
@@ -238,7 +239,6 @@ class Particles {
     gl.bindVertexArray(null);
     gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER, 0, null);
     gl.bindTransformFeedback(gl.TRANSFORM_FEEDBACK, null);
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
   }
   
   set acceleration(vector) {
